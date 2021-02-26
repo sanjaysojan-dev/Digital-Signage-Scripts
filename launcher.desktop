@@ -1,4 +1,5 @@
 [Desktop Entry]
 Name=Launcher
-Exec="/home/launch_kiosk.sh"
+Exec="/home/pi/launch_kiosk.sh"
 Type=Application
+Name[en_US]=launcher
