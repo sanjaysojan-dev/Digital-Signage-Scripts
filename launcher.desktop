@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=Launcher
+Exec="/home/launch_kiosk.sh"
+Type=Application
