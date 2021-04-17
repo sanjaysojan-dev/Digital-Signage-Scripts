@@ -14,6 +14,7 @@ def inputNumber():
         print("INSTALLING Mozilla Firefox")
 
         os.system("sudo apt-get install firefox-esr")
+	os.system("sudo apt-get install zenity")
 	
 
 
@@ -53,6 +54,7 @@ def writeCommandToFile (input):
 	os.system("cp check_connectivity.sh /home/pi")
 	os.system("cp launch_kiosk.sh /home/pi/")
 	os.system("cp launcher.desktop /home/pi/.config/autostart/")
+	os.system("cp Warning.png /home/pi/")
 	os.system("sudo reboot")   
 
 
