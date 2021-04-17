@@ -2,4 +2,5 @@
 Name=Launcher
 Exec="/home/pi/check_connectivity.sh"
 Type=Application
+Terminal=True
 Name[en_US]=launcher

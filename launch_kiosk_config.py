@@ -1,37 +1,60 @@
 import os
+import requests
 
-def inputNumber(message):
-  while True:
+
+
+def inputNumber():
+
     try:
-       userInput = int(raw_input(message))       
-    except ValueError:
-       print("NOT A VAILD INTEGER. PLEASE TRY AGAIN")
-       continue
-    else:
-       writeCommandToFile(userInput)
-       return userInput 
-       break 
 
+        r = requests.get("http://www.google.co.uk", timeout=10)
 
+        print("CONNECTION STATUS: ONLINE")
 
-def writeCommandToFile (input):
-	#launch_kiosk = open("launch_kiosk.sh", "a")
-	#launch_kiosk.write("\n sleep 15 \n")
-	#launch_kiosk.write("firefox -kiosk 192.168.0.36/imageSlider/" + str(input))
-	#launch_kiosk.close()
+        print("INSTALLING Mozilla Firefox")
 
-	readFile = open("launch_kiosk.sh")
-	lines = readFile.readlines()
-	readFile.close()
-	w = open("launch_kiosk.sh",'w')
-	w.writelines([item for item in lines[:-1]])
-	w.close()
-
-	launch_kiosk = open("launch_kiosk.sh", "a")
-	launch_kiosk.write("firefox -kiosk 192.168.0.36/imageSlider/" + str(input))
-
+        os.system("sudo apt-get install firefox-esr")
 	
 
 
+
+        while True:
+
+            try:
+
+                print(">> PLEASE ENTER NODE NUMBER: ")
+
+                userInput = int(raw_input())
+
+            except ValueError:
+
+                print("NOT A VAILD INTEGER. PLEASE TRY AGAIN")
+
+                continue
+
+            else:
+
+                writeCommandToFile(userInput)
+
+                return userInput
+
+                break 
+
+    except requests.ConnectionError as ex:
+
+        print("CONNECTION STATUS: OFFLINE - Please check WiFi or Ethernet Connection")
+
+    
+def writeCommandToFile (input):
+	launch_kiosk = open("launch_kiosk.sh", "w")
+	launch_kiosk.write("firefox -kiosk 192.168.0.36/imageSlider/" + str(input))
+	launch_kiosk.close()
+	
+	os.system("cp check_connectivity.sh /home/pi")
+	os.system("cp launch_kiosk.sh /home/pi/")
+	os.system("cp launcher.desktop /home/pi/.config/autostart/")
+	os.system("sudo reboot")   
+
+
 #MAIN PROGRAM STARTS HERE:
-age = inputNumber("PLEASE ENTER NODE NUMBER: ")
+inputNumber()
